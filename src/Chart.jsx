@@ -12,7 +12,7 @@ const Chart = ({ data }) => {
     if (entry.time === "OFF") return { ...entry, color: "black" };
     if (entry.time >= "09:00" && entry.time <= "18:00")
       return { ...entry, color: "blue" };
-    if (entry.time > "09:00") return { ...entry, color: "yellow" };
+    if (entry.time > "09:00") return { ...entry, color: "blue" };
     if (entry.time < "18:00") return { ...entry, color: "purple" };
     return { ...entry, color: "green" };
   });
@@ -36,7 +36,51 @@ const Chart = ({ data }) => {
     },
   };
 
-  return <Bar data={chartData} options={options} />;
+  const legend = [
+    { label: "Absent", color: "red" },
+    { label: "HalfDay", color: "lightblue" },
+    { label: "ShortDay", color: "orange" },
+    { label: "Leave", color: "lightyellow" },
+    { label: "Missing", color: "gray" },
+    { label: "OFF", color: "black" },
+    { label: "Present", color: "blue" },
+    { label: "Late", color: "yellow" },
+    { label: "Early", color: "purple" },
+  ];
+
+  return (
+    <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "20px",
+        }}
+      >
+        {legend.map((item) => (
+          <div
+            key={item.label}
+            style={{
+              marginRight: "20px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                width: "20px",
+                height: "20px",
+                backgroundColor: item.color,
+                marginRight: "5px",
+              }}
+            ></div>
+            <span>{item.label}</span>
+          </div>
+        ))}
+      </div>
+      <Bar data={chartData} options={options} />
+    </div>
+  );
 };
 
 export default Chart;
