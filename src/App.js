@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 const data = [
   { date: "01-May-2025", status: "Absent", hours: 1, checkIn: null, checkOut: null },
-  { date: "02-May-2025", status: "Early", hours: 9.6, checkIn: "07:00", checkOut: "16:00" },
+  { date: "02-May-2025", status: "Early", hours: 7.6, checkIn: "07:00", checkOut: "16:00" },
   { date: "03-May-2025", status: "OFF", hours: 1, checkIn: null, checkOut: null },
   { date: "04-May-2025", status: "OFF", hours: 1, checkIn: null, checkOut: null },
   { date: "05-May-2025", status: "Present", hours: 9, checkIn: "09:00", checkOut: "18:00" },
@@ -78,7 +78,10 @@ const App = () => {
         beginAtZero: true,
         max: 10,
         ticks: {
-          stepSize: 1
+          stepSize: 1,
+          callback: function(value) {
+            return value < 10 ? `0${value}` : value;
+          }
         }
       },
     },
